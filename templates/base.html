@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} sms {% endblock %}</title>
+</head>
+<body>
+	<div id="header">
+		<a href="/" class="logo">Sms</a>
+		<ul class="menu">
+			{% if user.is_authenticated %}
+				<li><a href="{% url 'account:logout'%}">Sign Out</a></li>
+			{% else %}
+				<li><a href="{% url 'account:login' %}">Sign In</a></li>
+			{% endif %}
+		</ul>
+	</div>
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+	<script src="{%  static 'js/jquery.js'%}">
+		$(docuemnt).ready(function(){
+			{% block domready %}
+			{% endblock %}
+		});
+	</script>
+</body>
+</html>
