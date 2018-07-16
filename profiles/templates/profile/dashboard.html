@@ -1,9 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
 	<h2>{{ dashboard }}</h2>
-	{% if user.is_authenticated %}
-		<p>Welcome {{ user.student }}</p>
-	{% else %}
-		<p></p>
-	{% endif %}
+		<p>Welcome {{ student_name }}</p>		
 {% endblock %}

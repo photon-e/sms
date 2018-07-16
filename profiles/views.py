@@ -7,11 +7,13 @@ from .models import (
 
 
 def dashboard(request):
-	student_obj 	= StudentProfile.objects.all()
+	if request.user.is_authenticated:
+		student  = StudentProfile.objects.get(user=request.user)
+		print(student.first_name)	
 	profile 	= 'My Dashboard'
 	template_name= 'profile/dashboard.html'
 	context		= {
 	'dashboard':profile,
-	'student_user':student_obj,
+	'student_name':student.first_name,
 	}
 	return render(request,template_name, context)

@@ -1,5 +1,4 @@
 profiles/__pycache__
-courses
 profiles/__pycache__/__init__.cpython-35.pyc
 profiles/__pycache__/admin.cpython-35.pyc
 profiles/__pycache__/forms.cpython-35.pyc
@@ -9,3 +8,16 @@ sms/__pycache__/__init__.cpython-35.pyc
 sms/__pycache__/settings.cpython-35.pyc
 sms/__pycache__/urls.cpython-35.pyc
 sms/__pycache__/wsgi.cpython-35.pyc
+db.sqlite3
+courses/migrations
+profiles/migrations
+account/migrations
+account/migrations/__pycahe__
+courses/migrations/__pycahe__
+profiles/migrations/__pycahe_
+account/migrations/__pycahe__
+account/__pycache__/
+account/images/
+account/student/
+account/teacher/
+
