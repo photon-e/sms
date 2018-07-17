@@ -8,12 +8,15 @@ from .models import (
 
 def dashboard(request):
 	if request.user.is_authenticated:
-		student  = StudentProfile.objects.get(user=request.user)
-		print(student.first_name)	
+		if request.user.student == True:
+			user  = StudentProfile.objects.get(user=request.user)
+		elif request.user.teacher == True:
+			user  = TeacherProfile.objects.get(user=request.user)
+		print(user.first_name)	
 	profile 	= 'My Dashboard'
 	template_name= 'profile/dashboard.html'
 	context		= {
 	'dashboard':profile,
-	'student_name':student.first_name,
+	'student_name':user.first_name,
 	}
 	return render(request,template_name, context)
