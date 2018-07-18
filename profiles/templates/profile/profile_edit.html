@@ -188,6 +188,27 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-6">
+              {{ form.non_field_errors }}
+              <div class="form-group">
+                {{ form.state_of_origin.errors }}
+                <label class="bmd-label-floating" for="{{ form.state_of_origin.id_for_label }}">State of origin</label>
+                {{ form.state_of_origin }}
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              {{ form.non_field_errors }}
+              <div class="form-group">
+                {{ form.residential_area.errors }}
+                <label class="bmd-label-floating" for="{{ form.residential_area.id_for_label }}">Country</label>
+                {{ form.residential_area }}
+              </div>
+            </div>
+          </div>
+
+          
 
       			<input type="submit" name="" value="Edit Profile">
           

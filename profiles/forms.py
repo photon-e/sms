@@ -31,6 +31,12 @@ class StudentCreationForm(forms.ModelForm):
 	other_name  = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 	last_name  	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 	country 	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	state_of_origin 	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	residential_area 	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	mobile_number = models.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	gender = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class':'form-control'}))
+	mailing_address  = forms.TextField(widget=forms.Textarea(attrs={'class':'form-control'}))
+
 
 
 	def clean_password_2(self):
