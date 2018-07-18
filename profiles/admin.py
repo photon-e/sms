@@ -5,10 +5,6 @@ from .models import (
 	StudentProfile,
 	TeacherProfile,
 )
-from .forms import (
-	StudentCreationForm,
-	StudentChangeForm,
-)
 
 
 # Register your models here.

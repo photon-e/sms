@@ -27,6 +27,11 @@ class StudentCreationForm(forms.ModelForm):
 			'mailing_address',	
 			'mobile_number',
 			)
+	first_name  = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	other_name  = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	last_name  	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	country 	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+
 
 	def clean_password_2(self):
 		password_1 	= self.cleaned_data.get('password_1')
@@ -44,16 +49,12 @@ class StudentCreationForm(forms.ModelForm):
 				
 
 
-class StudentChangeForm(forms.ModelForm):
-	password = ReadOnlyPasswordHashField()
+# class StudentChangeForm(forms.ModelForm):
+# 	class Meta:
+# 		model 	= StudentProfile
+		
 
-	class Meta:
-		model 	= StudentProfile
-		fields 	= ('first_name', 'last_name')
-
-	def clean_password(self):
-		return self.initial['password']
-
+	
 	 			
 			
 		

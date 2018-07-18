@@ -21,3 +21,7 @@ account/images/
 account/student/
 account/teacher/
 
+static/assets/img
+static/assets/scss
+static/assets/demo
+

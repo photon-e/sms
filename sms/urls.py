@@ -16,14 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.urls import path, include
+
 # import for static files
+
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='index.html'),name='index_page'),
+    path('',auth_view.LoginView.as_view(template_name='index.html'), name='login' ),
     path('account/',include('account.urls', namespace='account')),
+    path('profile/', include('profiles.urls', namespace='profiles')),
     # path('courses/', include('courses.urls')),
 ]
 
