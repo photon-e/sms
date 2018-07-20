@@ -19,7 +19,7 @@ class StudentCreationForm(forms.ModelForm):
 			'first_name',
 			'other_name',
 			'last_name',
-			'headshot',
+			'photo',
 			'gender',
 			'country',
 			'state_of_origin',
@@ -33,9 +33,10 @@ class StudentCreationForm(forms.ModelForm):
 	country 	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 	state_of_origin 	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 	residential_area 	= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-	mobile_number = models.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+	mobile_number = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
 	gender = forms.ChoiceField(widget=forms.RadioSelect(attrs={'class':'form-control'}))
-	mailing_address  = forms.TextField(widget=forms.Textarea(attrs={'class':'form-control'}))
+	mailing_address  = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
+	# subjects 	= forms.Check
 
 
 

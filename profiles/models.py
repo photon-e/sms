@@ -1,8 +1,12 @@
 from django.db import models
 from account.models import User
 from django.utils import timezone
-from courses.models import Subject
 # Create your models here.
+
+
+class SubjectProfile(models.Model):
+	title	= models.CharField(max_length=255)
+	slug 	= models.SlugField(max_length=255, unique=True)
 
 
 class StudentProfile(models.Model):
@@ -23,7 +27,8 @@ class StudentProfile(models.Model):
 	first_name		= models.CharField(max_length=255, blank=True, null=True)
 	other_name		= models.CharField(max_length=255, blank=True, null=True)
 	last_name		= models.CharField(max_length=255, blank=True, null=True)
-	headshot		= models.ImageField(upload_to='media/student/images')
+	photo			= models.ImageField(upload_to='media/student/images')
+	qualification 	= models.FileField(upload_to='media/student/certificates')
 	gender 			= models.CharField(max_length=60, choices=GENDER_TYPE)
 	country			= models.CharField(max_length=255, blank=True, null=True)
 	state_of_origin	= models.CharField(max_length=255, blank=True, null=True)
@@ -32,7 +37,7 @@ class StudentProfile(models.Model):
 	mailing_address	= models.TextField(blank=True,null=True)
 	mobile_number	= models.CharField(max_length=255, blank=True, null=True)
 	student_class   = models.CharField(max_length=60,choices=STUDENT_CLASS)
-	subjects 		= models.ManyToManyField(Subject)
+	subjects 		= models.ManyToManyField(SubjectProfile)
 	timestamp		= models.DateTimeField(auto_now_add=True)
 	updated			= models.DateTimeField(auto_now=True)
 	date_of_birth	= models.DateField(default=timezone.now)
@@ -64,7 +69,8 @@ class TeacherProfile(models.Model):
 	first_name		= models.CharField(max_length=255, blank=True, null=True)
 	other_name		= models.CharField(max_length=255, blank=True, null=True)
 	last_name		= models.CharField(max_length=255, blank=True, null=True)
-	headshot		= models.ImageField(upload_to='media/teacher/images')
+	photo			= models.ImageField(upload_to='media/teacher/images')
+	qualification 	= models.FileField(upload_to='media/teacher/certificates')
 	gender 			= models.CharField(max_length=60, choices=GENDER_TYPE)
 	nationality		= models.CharField(max_length=255, blank=True, null=True)
 	state_of_origin	= models.CharField(max_length=255, blank=True, null=True)
@@ -72,7 +78,7 @@ class TeacherProfile(models.Model):
 	country			= models.CharField(max_length=255, blank=True, null=True)	
 	zipcode 		= models.CharField(max_length=30, blank=True, null=True)
 	teacher_class 	= models.CharField(max_length=60, choices=TEACHER_CLASS)
-	subjects 		= models.ManyToManyField(Subject)
+	subjects 		= models.ManyToManyField(SubjectProfile)
 	mailing_address	= models.TextField(blank=True,null=True)
 	mobile_number	= models.CharField(max_length=255, blank=True, null=True)
 	timestamp		= models.DateTimeField(auto_now_add=True)
@@ -87,6 +93,7 @@ class TeacherProfile(models.Model):
 	def __str__(self):
 		'''Returns the string representation of the TeacherProfile object'''
 		return self.get_full_name()
+
 
 
 

@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (
 	StudentProfile,
 	TeacherProfile,
+	SubjectProfile,
 )
 
 
@@ -22,12 +23,14 @@ class StudentAdmin(admin.ModelAdmin):
 					'fields':('first_name', 
 					'last_name',
 					'other_name',
-					'gender',)}),
-		('Passport', {'fields':('headshot',)}),
+					'gender',
+					'date_of_birth',
+					)}),
+		('Credentials', {'fields':('photo','qualification')}),
 		('Nationality', {'fields':('country', 'state_of_origin', 'zipcode')}),
 		('Addresses', {'fields':('residential_area','mailing_address','mobile_number')}),
 		('Student Class', {'fields':('student_class',)}),
-		('Student Subject', {'fields':('subjects',)})
+		('Student Subject', {'fields':('subjects','date_of_joining')})
 
 	)
 
@@ -48,12 +51,13 @@ class TeacherAdmin(admin.ModelAdmin):
 					'fields':('first_name', 
 					'last_name',
 					'other_name',
-					'gender',)}),
-		('Passport', {'fields':('headshot',)}),
+					'gender',
+					'date_of_birth',)}),
+		('Credentials', {'fields':('photo','qualification')}),
 		('Nationality', {'fields':('country', 'state_of_origin', 'zipcode')}),
 		('Addresses', {'fields':('residential_area','mailing_address','mobile_number')}),
 		('Teacher Class', {'fields':('teacher_class',)}),
-		('Teacher Subject', {'fields':('subjects',)})
+		('Teacher Subject', {'fields':('subjects','date_of_joining')})
 	)
 	def teacher_full_name(self, obj):
 		return ('%s %s %s' %(obj.first_name, obj.other_name ,obj.last_name)).upper()
@@ -63,6 +67,10 @@ class TeacherAdmin(admin.ModelAdmin):
 	# 	return ('%s %s'%(obj.first_name. obj.last_name)).upper()
 	# full_name.short_description = 'TName'
 	
+
+class SubjectAdmin(admin.ModelAdmin):
+	list_display = ['title', 'slug']
+
 admin.site.register(StudentProfile,StudentAdmin)
 admin.site.register(TeacherProfile, TeacherAdmin)
-
+admin.site.register(SubjectProfile,SubjectAdmin)
