@@ -43,7 +43,7 @@ class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
 class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
 	fields = ['subject', 'title', 'slug', 'overview']
 	success_url = reverse_lazy('manage_course_list')
-	tempalte_name = 'courses/mannage/course/form.html'
+	template_name = 'courses/manage/course/form.html'
 
 
 class ManageCourseListView(OwnerCourseMixin, ListView):
@@ -58,6 +58,6 @@ class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
 
 
 class CourseDeleteView(PermissionRequiredMixin,OwnerCourseMixin, DeleteView):
-	tempalte_name = 'courses/manage/course.delete.html'
+	template_name = 'courses/manage/course/delete.html'
 	success_url = reverse_lazy('manage_course_list')
 	permission_required = 'courses.delete_course'
