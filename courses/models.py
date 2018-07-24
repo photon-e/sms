@@ -57,7 +57,7 @@ class Content(models.Model):
 
 
 class ItemBase(models.Model):
-	teacher = models.ForeignKey(User, on_delete=models.CASCADE,related_name='%(class)s_related')
+	teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE,related_name='%(class)s_related')
 	title   = models.CharField(max_length=250)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
@@ -81,6 +81,7 @@ class Image(ItemBase):
 
 class Video(ItemBase):
 	url = models.URLField()
+
 
 # from django.db import models
 # from .fields import OrderField
