@@ -55,6 +55,33 @@ class Content(models.Model):
 	object_id = models.PositiveIntegerField()
 	items = GenericForeignKey('content_type', 'object_id')
 
+
+class ItemBase(models.Model):
+	teacher = models.ForeignKey(User, on_delete=models.CASCADE,related_name='%(class)s_related')
+	title   = models.CharField(max_length=250)
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		abstract = True
+
+	def __str__(self):
+		return self.title
+
+
+class Text(ItemBase):
+	content = models.TextField()
+
+class Field(ItemBase):
+	file = models.FileField(upload_to='media/content/files')
+
+class Image(ItemBase):
+	file = models.ImageField(upload_to='media/content/images')
+
+
+class Video(ItemBase):
+	url = models.URLField()
+
 # from django.db import models
 # from .fields import OrderField
 # from django.contrib.contenttypes.models import ContentType
