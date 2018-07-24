@@ -1,4 +1,7 @@
-from django.views.generic.list import ListView
+from django.contrib.auth.mixins import (
+		LoginRequiredMixin,
+		PermissionRequiredMixin
+)
 from django.views.generic.list import ListView
 from django.views.generic.edit import(
 	CreateView,
@@ -10,7 +13,7 @@ from django.views import View
 from .models import CourseOutline
 from django.urls import reverse_lazy
 
-
+from profiles.models import TeacherProfile
 
 class OwnerMixin(object):
 	'''
@@ -18,7 +21,8 @@ class OwnerMixin(object):
 	'''
 	def get_queryset(self):
 		qs = super(OwnerMixin, self).get_queryset()
-		return qs.filter(owner=self.request.user)
+		user = TeacherProfile.objects.get(user=self.request.user)
+		return qs.filter(teacher=user)
 
 class OwnerEditMixin(object):
 	'''
@@ -29,26 +33,31 @@ class OwnerEditMixin(object):
 		return super(OwnerEditMixin, self).form_valid(form)
 
 
-class OwnerCourseMixin(OwnerMixin):
+
+class OwnerCourseMixin(OwnerMixin, LoginRequiredMixin):
 	model = CourseOutline
+	fields = ['subject', 'title', 'slug', 'overview']
+
 
 
 class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
 	fields = ['subject', 'title', 'slug', 'overview']
 	success_url = reverse_lazy('manage_course_list')
-"""
-
-class BaseClass(View):
-	greetings = "Good Moring"
-
-	def get(self,request):
-		return HttpResponse(str(self.greetings))
-
-class ChildClass(View):
-	greetings = "Good Afternoon"
-
-	def get(self, request):
-		return HttpResponse(self.greetings)
+	tempalte_name = 'courses/mannage/course/form.html'
 
 
-"""
+class ManageCourseListView(OwnerCourseMixin, ListView):
+	tempalte_name = 'courses/manage/course/list.html'
+
+
+class CourseCreateView(PermissionRequiredMixin,OwnerCourseEditMixin, CreateView):
+	permission_required = 'courses.add_course'
+
+class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
+	permission_required = 'courses.change_course'
+
+
+class CourseDeleteView(PermissionRequiredMixin,OwnerCourseMixin, DeleteView):
+	tempalte_name = 'courses/manage/course.delete.html'
+	success_url = reverse_lazy('manage_course_list')
+	permission_required = 'courses.delete_course'
