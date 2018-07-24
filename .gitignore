@@ -1,4 +1,5 @@
 profiles/__pycache__
+courses/__pycache__
 profiles/__pycache__/__init__.cpython-35.pyc
 profiles/__pycache__/admin.cpython-35.pyc
 profiles/__pycache__/forms.cpython-35.pyc
@@ -24,4 +25,3 @@ account/teacher/
 static/assets/img
 static/assets/scss
 static/assets/demo
-
