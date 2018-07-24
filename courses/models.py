@@ -43,11 +43,12 @@ class CourseOutline(models.Model):
 	created 	= models.DateTimeField(auto_now_add=True)
 
 
+
 	class Meta:
 		ordering = ('-created',)
 
 	def __str__(self):
-		return '{}. {}'.format(self.order,self.title)
+		return str(self.title)
 
 class Module(models.Model):
 	course_outline 	= models.ForeignKey(CourseOutline, on_delete=models.CASCADE,related_name='modules')
@@ -60,7 +61,7 @@ class Module(models.Model):
 
 
 	def __str__(self):
-		return str(self.title)
+		return "{}. {}".format(self.order, self.title)
 
 
 class Content(models.Model):
