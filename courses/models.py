@@ -1,11 +1,20 @@
+# from the inbuilt db module
 from django.db import models
+# timezone module
 from django.utils import timezone
+
+# from the account model
 from account.models import (
 	User,
 )
+
+# from the profile model
 from profiles.models import (
 	TeacherProfile,
 )
+
+# custom fields
+from .fields import OrderField
 
 # Content types
 from django.contrib.contenttypes.models import ContentType
@@ -37,29 +46,35 @@ class CourseOutline(models.Model):
 		ordering = ('-created',)
 
 	def __str__(self):
-		return str(self.title)
+		return '{}. {}'.format(self.order,self.title)
 
 class Module(models.Model):
 	course_ouline 	= models.ForeignKey(CourseOutline, on_delete=models.CASCADE,related_name='modules')
-	title 		= models.CharField(max_length=200)
-	description = models.TextField(blank=True)
+	title 			= models.CharField(max_length=200)
+	description 	= models.TextField(blank=True)
+	order 			= OrderField(blank=True,for_fields=['course_outline'])
+
+	class Meta:
+		ordering = ['order',]
+
 
 	def __str__(self):
 		return str(self.title)
 
-
-
 class Content(models.Model):
-	module = models.ForeignKey(Module, on_delete=models.CASCADE,related_name='contents')
-	content_type = models.ForeignKey(ContentType, 
+	module 			= models.ForeignKey(Module, on_delete=models.CASCADE,related_name='contents')
+	content_type 	= models.ForeignKey(ContentType, 
 							on_delete=models.CASCADE,
 							limit_choices_to={'model__in':('text',
 															'video',
 															'image',
 															'file')})
-	object_id = models.PositiveIntegerField()
-	items = GenericForeignKey('content_type', 'object_id')
+	object_id 		= models.PositiveIntegerField()
+	items 			= GenericForeignKey('content_type', 'object_id')
+	order 			= OrderField(blank=True, for_fields=['module'])
 
+	class Meta:
+		ordering = ['order']
 
 class ItemBase(models.Model):
 	teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE,related_name='%(class)s_related')
