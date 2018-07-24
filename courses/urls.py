@@ -6,5 +6,4 @@ from . import views
 app_name = 'courses'
 
 urlpatterns = [
-	re_path('^home/$',views.GreetingView.as_view(),name='greeting'),
 ]
