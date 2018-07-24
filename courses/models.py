@@ -33,6 +33,7 @@ class Subject(models.Model):
 	def __str__(self):
 		return str(self.title)
 
+
 class CourseOutline(models.Model):
 	teacher 	= models.ForeignKey(TeacherProfile,on_delete=models.CASCADE, related_name='course_ouline_created')
 	subject 	= models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='course')
@@ -49,7 +50,7 @@ class CourseOutline(models.Model):
 		return '{}. {}'.format(self.order,self.title)
 
 class Module(models.Model):
-	course_ouline 	= models.ForeignKey(CourseOutline, on_delete=models.CASCADE,related_name='modules')
+	course_outline 	= models.ForeignKey(CourseOutline, on_delete=models.CASCADE,related_name='modules')
 	title 			= models.CharField(max_length=200)
 	description 	= models.TextField(blank=True)
 	order 			= OrderField(blank=True,for_fields=['course_outline'])
@@ -60,6 +61,7 @@ class Module(models.Model):
 
 	def __str__(self):
 		return str(self.title)
+
 
 class Content(models.Model):
 	module 			= models.ForeignKey(Module, on_delete=models.CASCADE,related_name='contents')
@@ -75,6 +77,7 @@ class Content(models.Model):
 
 	class Meta:
 		ordering = ['order']
+
 
 class ItemBase(models.Model):
 	teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE,related_name='%(class)s_related')
@@ -101,6 +104,8 @@ class Image(ItemBase):
 
 class Video(ItemBase):
 	url = models.URLField()
+
+
 
 
 # from django.db import models
