@@ -47,7 +47,7 @@ class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
 
 
 class ManageCourseListView(OwnerCourseMixin, ListView):
-	tempalte_name = 'courses/manage/course/list.html'
+	template_name = 'courses/manage/course/list.html'
 
 
 class CourseCreateView(PermissionRequiredMixin,OwnerCourseEditMixin, CreateView):

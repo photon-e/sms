@@ -35,7 +35,7 @@ class User(AbstractBaseUser):
 	admin			= models.BooleanField(default=False)
 	teacher			= models.BooleanField(default=False)
 	student			= models.BooleanField(default=False)
-	groups 			= models.ForeignKey(Group,models.CASCADE)
+	groups 			= models.ManyToManyField(Group,blank=True)
 	objects 		= UserManager()
 
 
