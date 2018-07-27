@@ -23,6 +23,9 @@ def dashboard(request):
 			user  = StudentProfile.objects.get(user=request.user)
 		elif request.user.teacher == True:
 			user  = TeacherProfile.objects.get(user=request.user)
+		else:
+			user = request.user
+			user.first_name = 'Admin'
 		print(user.first_name)	
 	profile 	= 'My Dashboard'
 	template_name= 'profile/dashboard.html'

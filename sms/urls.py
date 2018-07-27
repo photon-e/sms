@@ -28,7 +28,7 @@ urlpatterns = [
     path('',auth_view.LoginView.as_view(template_name='index.html'), name='login' ),
     path('account/',include('account.urls', namespace='account')),
     path('profile/', include('profiles.urls', namespace='profiles')),
-    path('courses/', include('courses.urls')),
+    path('courses/', include('courses.urls', namespace='courses')),
 ]
 
 if settings.DEBUG:

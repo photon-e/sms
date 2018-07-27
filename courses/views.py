@@ -21,16 +21,19 @@ class OwnerMixin(object):
 	'''
 	def get_queryset(self):
 		qs = super(OwnerMixin, self).get_queryset()
-		user = TeacherProfile.objects.get(user=self.request.user)
-		return qs.filter(teacher=user)
+		owner = TeacherProfile.objects.get(user = self.request.user)
+		return qs.filter(teacher=owner)
+
+
 
 class OwnerEditMixin(object):
 	'''
 		Override the form_valid method
 	'''
 	def form_valid(self, form):
-		form.instance.owner = self.request.user
+		form.instance.owner = TeacherProfile.objects.get(user=self.request.user)
 		return super(OwnerEditMixin, self).form_valid(form)
+
 
 
 
@@ -50,8 +53,11 @@ class ManageCourseListView(OwnerCourseMixin, ListView):
 	template_name = 'courses/manage/course/list.html'
 
 
+
 class CourseCreateView(PermissionRequiredMixin,OwnerCourseEditMixin, CreateView):
 	permission_required = 'courses.add_course'
+
+
 
 class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
 	permission_required = 'courses.change_course'
