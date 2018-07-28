@@ -4,13 +4,17 @@
  {% for course in object_list %}
  	<div class="info">
  		<h3>{{ course.title }}</h3>
+ 		<table>
+ 			<th>
+ 				<td>{{ course.slug }}</td>
+ 			</th>
+ 		</table>
  		<p>
  			<a href="{% url 'courses:course_edit' course.id %}">Edit</a>
- 			<a href="{% url 'courses:course_delete' course.delete %}">Delete</a>
+ 			<a href="{% url 'courses:course_delete' course.id%}">Delete</a>
+ 			<a href="{% url 'courses:course_module_update' course.id %}">Edit Modules</a>
  		</p>
  	</div>
- 	{% empty %}
- 	 <p>You haven't created any course</p>
  {% endfor %}
  <p><a href="{% url 'courses:course_create'%}" class="btn">Create Course</a></p>
 {% endblock %}

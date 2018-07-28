@@ -70,6 +70,7 @@ class TeacherAdmin(admin.ModelAdmin):
 
 class SubjectAdmin(admin.ModelAdmin):
 	list_display = ['title', 'slug']
+	prepopulated_fields 	= {'slug':('title',)}
 
 admin.site.register(StudentProfile,StudentAdmin)
 admin.site.register(TeacherProfile, TeacherAdmin)

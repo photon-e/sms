@@ -35,12 +35,14 @@ class Subject(models.Model):
 
 
 class CourseOutline(models.Model):
-	teacher 	= models.OneToOneField(TeacherProfile,on_delete=models.CASCADE, related_name='course_ouline_created')
+	teacher 	= models.ManyToManyField(TeacherProfile)
 	subject 	= models.OneToOneField(Subject, on_delete=models.CASCADE, related_name='course')
 	title		= models.CharField(max_length=200)
 	slug 		= models.SlugField(max_length=200,unique=True)
 	overview	= models.TextField()
 	created 	= models.DateTimeField(auto_now_add=True)
+
+
 
 
 
