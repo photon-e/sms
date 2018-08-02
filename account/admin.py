@@ -23,7 +23,7 @@ class UserAdmin(BaseUserAdmin):
 	list_filter		= ('admin',)
 	fieldsets		= (
 			(None,{'fields':('email', 'password')}),
-			('Permissions', {'fields':('admin','teacher','student')}),
+			('Permissions', {'fields':('admin','teacher','student', 'groups')}),
 
 	)
 
@@ -33,7 +33,7 @@ class UserAdmin(BaseUserAdmin):
 	add_fieldsets = (
 		(None, {
 			'classes':('wide',),
-			'fields':('email','password_1','password_2', 'student', 'teacher')
+			'fields':('email','password_1','password_2', 'student', 'teacher', 'groups')
 			}
 
 		),
@@ -42,19 +42,5 @@ class UserAdmin(BaseUserAdmin):
 	ordering	  = ('email',)
 	filter_horizontal	= ()
 
-
-# @admin.register(UserGroup)
-# class GroupAdmin(admin.ModelAdmin):
-#     search_fields = ('name',)
-#     ordering = ('name',)
-#     filter_horizontal = ('permissions',)
-
-#     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
-#         if db_field.name == 'permissions':
-#             qs = kwargs.get('queryset', db_field.remote_field.model.objects)
-#             # Avoid a major performance hit resolving permission names which
-#             # triggers a content_type load:
-#             kwargs['queryset'] = qs.select_related('content_type')
-#         return super().formfield_for_manytomany(db_field, request=request, **kwargs)
 
 admin.site.register(User,UserAdmin)
